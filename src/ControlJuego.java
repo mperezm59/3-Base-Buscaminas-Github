@@ -25,6 +25,7 @@ public class ControlJuego {
 		
 		//Inicializamos una nueva partida
 		inicializarPartida();
+		depurarTablero();
 	}
 	
 	
@@ -35,8 +36,35 @@ public class ControlJuego {
 	 */
 	public void inicializarPartida(){
 
+		// rellenamos el tablero con 0 al inicar la partida
+		for (int i = 0; i < tablero.length; i++) {
+			for (int j = 0; j < tablero[i].length; j++) {
+					tablero[i][j] = 0;
+			}
+		}
+		
+		// ponemos la puntuacion a 0 al emprezar
+		puntuacion = 0;
+
 		//TODO: Repartir minas e inicializar puntaci�n. Si hubiese un tablero anterior, lo pongo todo a cero para inicializarlo.
 		
+		// nos creamos 2 aleatorios que guardaremos en 2 int;
+		Random ri = new Random();
+		int alei, alej;
+		Random rj = new Random();
+		
+		for(int i = 0;i < MINAS_INICIALES;i++){
+			// creamos 2 aleatorios.
+			alei = ri.nextInt(LADO_TABLERO);
+			alej = rj.nextInt(LADO_TABLERO);
+			// si en la posicion del tablero sacada anteriormente con los aleatorios
+			// no hay minas colocamos una mina, y si la ahi volvemos a generar los aleatorios.
+			if(tablero[alei][alej] != MINA){
+				tablero[alei][alej] = MINA;
+			}else{
+				i--;
+			}
+		}
 		
 		
 		//Al final del m�todo hay que guardar el n�mero de minas para las casillas que no son mina:
@@ -58,7 +86,30 @@ public class ControlJuego {
 	 * @return : El número de minas que hay alrededor de la casilla [i][j]
 	 **/
 	private int calculoMinasAdjuntas(int i, int j){
-		return 0;
+		// nos declaramos un contador.
+		int cont = 0;
+		// nos declaraos una variables para ver donde empieza y acaba nuestro tablero (vertical, horizontal).
+		int iIni, iFin = i+1, jIni, jFin = j+1;
+
+		// nos recorremos los alrededores de nuestra celda.
+		for(iIni = i-1;iIni <= iFin;iIni++){
+			for(jIni = j-1;jIni <= jFin;jIni++){
+
+				// comprobamos que la celda a comprobar esta dentro del tablero.
+				if(iIni >= 0 && iIni <= LADO_TABLERO-1){
+					if(jIni >= 0 && jIni <= LADO_TABLERO-1){
+						// comprobamos si la celda de los alrededores de uestra celda es una mina
+						if(tablero[iIni][jIni] == MINA){
+							// si o es aumentamos el contador y asi sabremos cuantas minas ahi al lado de nuestra celda.
+							cont++;
+						}
+					}
+				}
+
+			}
+		}
+
+		return cont;
 	}
 	
 	/**
