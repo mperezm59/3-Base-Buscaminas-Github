@@ -143,6 +143,14 @@ public class VentanaPrincipal {
 	 */
 	public void inicializarListeners(){
 		//TODO
+
+		// dar listener a los botones para que se abran casillas.
+
+		for(int i = 0;i < juego.LADO_TABLERO;i++){
+			for(int j = 0;j < juego.LADO_TABLERO;j++){
+				botonesJuego[i][j].addActionListener(new ActionBoton(this, i, j));
+			}
+		}
 	}
 	
 	
@@ -160,6 +168,37 @@ public class VentanaPrincipal {
 	 */
 	public void mostrarNumMinasAlrededor(int i , int j) {
 		//TODO
+		// seleccionar el panel[i][j] correspondiente
+		// Eliminar todos sus componentes: //Buscarlo en internet
+		// Añadimos un JLabel centrado y no editable con el umero de minas alrededor
+		// El numero minas alrededor se saca de ControlJuego.
+
+		int minasAlrededor = juego.getMinasAlrededor(i, j);
+		JLabel minasA = new JLabel(""+minasAlrededor);
+		minasA.setHorizontalAlignment(SwingConstants.CENTER);
+		int color = Integer.parseInt(minasA.getText());
+
+		switch (color) {
+			case 0:
+				minasA.setForeground(correspondenciaColores[0]);
+				break;
+			case 1:
+				minasA.setForeground(correspondenciaColores[1]);
+				break;
+			case 2:
+				minasA.setForeground(correspondenciaColores[2]);
+				break;
+			case 3:
+				minasA.setForeground(correspondenciaColores[3]);
+				break;
+			default:
+				minasA.setForeground(correspondenciaColores[4]);
+				break;
+		}
+
+		panelesJuego[i][j].remove(botonesJuego[i][j]);
+		panelesJuego[i][j].add(minasA);
+
 	}
 	
 	
@@ -176,7 +215,7 @@ public class VentanaPrincipal {
 	 * Método que muestra la puntuación por pantalla.
 	 */
 	public void actualizarPuntuacion() {
-		//TODO
+		pantallaPuntuacion.setText(""+juego.getPuntuacion());
 	}
 	
 	/**
