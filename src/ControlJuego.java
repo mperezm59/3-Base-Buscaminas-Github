@@ -32,7 +32,7 @@ public class ControlJuego {
 	/**Método para generar un nuevo tablero de partida:
 	 * @pre: La estructura tablero debe existir. 
 	 * @post: Al final el tablero se habrá inicializado con tantas minas como marque la variable MINAS_INICIALES. 
-	 * 			El resto de posiciones que no son minas guardan en el entero cuántas minas hay alrededor de la celda
+	 * El resto de posiciones que no son minas guardan en el entero cuántas minas hay alrededor de la celda
 	 */
 	public void inicializarPartida(){
 

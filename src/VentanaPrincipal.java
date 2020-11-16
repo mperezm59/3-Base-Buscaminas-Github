@@ -121,12 +121,13 @@ public class VentanaPrincipal {
 			}
 		}
 
-		// Botones
 		botonesJuego = new JButton[10][10];
+		// Botones  
 		for (int i = 0; i < botonesJuego.length; i++) {
 			for (int j = 0; j < botonesJuego[i].length; j++) {
 				botonesJuego[i][j] = new JButton("-");
 				panelesJuego[i][j].add(botonesJuego[i][j]);
+				botonesJuego[i][j].setEnabled(true);
 			}
 		}
 
@@ -150,18 +151,22 @@ public class VentanaPrincipal {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				for (int i = 0; i < botonesJuego.length; i++) {
-					for (int j = 0; j < botonesJuego[i].length; j++) {
-
-						
+				for (int i = 0; i < panelesJuego.length; i++) {
+					for (int j = 0; j < panelesJuego.length; j++) {
+						panelesJuego[i][j].removeAll();
 					}
 				}
+
+				for (int i = 0; i < panelesJuego.length; i++) {
+					for (int j = 0; j < panelesJuego.length; j++) {
+						panelesJuego[i][j].add(botonesJuego[i][j]);
+						botonesJuego[i][j].setEnabled(true);
+					}
+				}
+				
 				juego.inicializarPartida();
-				refrescarPantalla();
 				juego.depurarTablero();
 
-				
-				
 			}
 		});
 
