@@ -245,7 +245,6 @@ public class VentanaPrincipal {
 		for (int i = 0; i < botonesJuego.length; i++) {
 			for (int j = 0; j < botonesJuego[i].length; j++) {
 				botonesJuego[i][j].setEnabled(false);
-				;
 			}
 		}
 
