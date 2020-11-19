@@ -14,9 +14,20 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 /**
- * Ventana principal del Buscaminas
+ * Ventana principal del Buscaminas, en esta clase se inicializaran tanto los
+ * componentes como los listener de los botones y se colocaran adecuadamente
+ * para tener una interfaz sencilla de usar. tambien existen metodos para
+ * mostrar el fin del juego. {@link #inicializar()}
  * 
- * @author {Rellenar por el alumno}
+ * 
+ * pero la clase que controla el juego es ControlJuego que coloca las minas,
+ * abre las casillas etc.
+ * 
+ * @see ControlJuego
+ * 
+ * @author Miguel Pérez Martin
+ * @version 1.0
+ * @since 1.0
  */
 public class VentanaPrincipal {
 
@@ -122,7 +133,7 @@ public class VentanaPrincipal {
 		}
 
 		botonesJuego = new JButton[10][10];
-		// Botones  
+		// Botones
 		for (int i = 0; i < botonesJuego.length; i++) {
 			for (int j = 0; j < botonesJuego[i].length; j++) {
 				botonesJuego[i][j] = new JButton("-");
@@ -146,30 +157,29 @@ public class VentanaPrincipal {
 
 		// dar listener a los botones para que se abran casillas.
 
-		botonEmpezar.addActionListener(new ActionListener(){
+		botonEmpezar.addActionListener(new ActionListener() {
 
+			// boton de volver a empezar el juego, quitamos todos lo componentes de los
+			// paneles e
+			// insertamos de nuevo los botones de juego y tambien los activamos.
+			// por ultimo llamammos al metodo inicializar partida para empezar el juego.
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
 				for (int i = 0; i < panelesJuego.length; i++) {
 					for (int j = 0; j < panelesJuego.length; j++) {
 						panelesJuego[i][j].removeAll();
-					}
-				}
-
-				for (int i = 0; i < panelesJuego.length; i++) {
-					for (int j = 0; j < panelesJuego.length; j++) {
 						panelesJuego[i][j].add(botonesJuego[i][j]);
 						botonesJuego[i][j].setEnabled(true);
 					}
 				}
-				
+
 				juego.inicializarPartida();
-				juego.depurarTablero();
 
 			}
 		});
 
+		// botones de juego
 		for (int i = 0; i < juego.LADO_TABLERO; i++) {
 			for (int j = 0; j < juego.LADO_TABLERO; j++) {
 				botonesJuego[i][j].addActionListener(new ActionBoton(this, i, j));
@@ -279,7 +289,15 @@ public class VentanaPrincipal {
 	}
 
 	/**
-	 * Método para inicializar el programa
+	 * Método para inicializar el programa 
+	 * {@code 
+	 * public void inicializar() {
+	 * // IMPORTANTE, PRIMERO HACEMOS LA VENTANA VISIBLE Y LUEGO INICIALIZAMOS LOS
+	 * // COMPONENTES.
+	 * ventana.setVisible(true);
+	 * inicializarComponentes();
+	 * inicializarListeners(); 
+	 * }}
 	 */
 	public void inicializar() {
 		// IMPORTANTE, PRIMERO HACEMOS LA VENTANA VISIBLE Y LUEGO INICIALIZAMOS LOS
