@@ -2,9 +2,14 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
+
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -76,7 +81,7 @@ public class VentanaPrincipal {
 		panelJuego = new JPanel();
 		panelJuego.setLayout(new GridLayout(10, 10));
 
-		botonEmpezar = new JButton("Go!");
+		botonEmpezar = new JButton("");
 		pantallaPuntuacion = new JTextField("0");
 		pantallaPuntuacion.setEditable(false);
 		pantallaPuntuacion.setHorizontalAlignment(SwingConstants.CENTER);
@@ -143,7 +148,9 @@ public class VentanaPrincipal {
 		}
 
 		// BotónEmpezar:
+		botonEmpezar.setIcon(new ImageIcon(getClass().getResource("/imagenes/nueva.png")));
 		panelEmpezar.add(botonEmpezar);
+
 		panelPuntuacion.add(pantallaPuntuacion);
 
 	}
@@ -170,7 +177,13 @@ public class VentanaPrincipal {
 					for (int j = 0; j < panelesJuego.length; j++) {
 						panelesJuego[i][j].removeAll();
 						panelesJuego[i][j].add(botonesJuego[i][j]);
+						// ponemos el textop a los botones y les quitamos el icono de las minas.
+						botonesJuego[i][j].setText("-");
+						botonesJuego[i][j].setIcon(new ImageIcon(getClass().getResource("")));
+
 						botonesJuego[i][j].setEnabled(true);
+						// icono al boton de empezar
+						botonEmpezar.setIcon(new ImageIcon(getClass().getResource("/imagenes/nueva.png")));
 					}
 				}
 
@@ -251,16 +264,37 @@ public class VentanaPrincipal {
 		String cadena = "";
 
 		if (porExplosion) {
+			verMinas();
+			botonEmpezar.setIcon(new ImageIcon(getClass().getResource("/imagenes/perdio.png")));
 			cadena += "BUUMM!! \n";
 			cadena += "Has perdido por explotar una mina \n";
 			cadena += "Tu puntuacion es: " + juego.getPuntuacion() + "\n";
 			cadena += "Intentalo de nuevo \n";
 		} else {
+			verMinas();
+			// para poner un icono al boton
+			botonEmpezar.setIcon(new ImageIcon(getClass().getResource("/imagenes/gano.png")));
 			cadena += "ENHORABUENAA!! \n";
 			cadena += "Has conseguido abrir todas las casillas sin explotar las minas \n";
 		}
 
 		JOptionPane.showMessageDialog(ventana, cadena, "Fin del juego", JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	/**
+	 * metodo que consigue que al acabar el juego nos abra todas las casillas para ver donde estaban las minas.
+	 */
+	public void verMinas() {
+		for (int i = 0; i < juego.LADO_TABLERO; i++) {
+			for (int j = 0; j < juego.LADO_TABLERO; j++) {
+				if (juego.minas(i, j)) {
+					botonesJuego[i][j].setText("");
+					botonesJuego[i][j].setIcon(new ImageIcon(getClass().getResource("/imagenes/minaJuego.png")));
+				} else {
+					mostrarNumMinasAlrededor(i, j);
+				}
+			}
+		}
 	}
 
 	/**
@@ -288,14 +322,11 @@ public class VentanaPrincipal {
 	}
 
 	/**
-	 * Método para inicializar el programa 
-	 * {@code 
+	 * Método para inicializar el programa {@code 
 	 * public void inicializar() {
 	 * // IMPORTANTE, PRIMERO HACEMOS LA VENTANA VISIBLE Y LUEGO INICIALIZAMOS LOS
 	 * // COMPONENTES.
-	 * ventana.setVisible(true);
-	 * inicializarComponentes();
-	 * inicializarListeners(); 
+	 * ventana.setVisible(true); inicializarComponentes(); inicializarListeners();
 	 * }}
 	 */
 	public void inicializar() {

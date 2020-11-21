@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+
 /**
  * Clase gestora del tablero de juego.
  * Guarda una matriz de enteros representado el tablero.
@@ -74,6 +77,14 @@ public class ControlJuego {
 				}
 			}
 		}
+	}
+
+	public boolean minas(int i, int j) {
+		if(tablero[i][j] == MINA){
+			return true;
+		}
+
+		return false;
 	}
 	
 	/**Cálculo de las minas adjuntas: 
