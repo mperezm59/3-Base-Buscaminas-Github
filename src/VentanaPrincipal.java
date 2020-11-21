@@ -63,7 +63,9 @@ public class VentanaPrincipal {
 		ventana = new JFrame();
 		ventana.setBounds(100, 100, 700, 500);
 		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		juego = new ControlJuego();
+
 	}
 
 	// Inicializa todos los componentes del frame
@@ -131,6 +133,7 @@ public class VentanaPrincipal {
 		panelesJuego = new JPanel[10][10];
 		for (int i = 0; i < panelesJuego.length; i++) {
 			for (int j = 0; j < panelesJuego[i].length; j++) {
+
 				panelesJuego[i][j] = new JPanel();
 				panelesJuego[i][j].setLayout(new GridLayout(1, 1));
 				panelJuego.add(panelesJuego[i][j]);
@@ -188,7 +191,7 @@ public class VentanaPrincipal {
 				}
 
 				juego.inicializarPartida();
-
+				actualizarPuntuacion();
 			}
 		});
 
@@ -240,7 +243,7 @@ public class VentanaPrincipal {
 				break;
 		}
 
-		panelesJuego[i][j].remove(botonesJuego[i][j]);
+		panelesJuego[i][j].removeAll();
 		panelesJuego[i][j].add(minasA);
 
 	}
@@ -282,7 +285,8 @@ public class VentanaPrincipal {
 	}
 
 	/**
-	 * metodo que consigue que al acabar el juego nos abra todas las casillas para ver donde estaban las minas.
+	 * metodo que consigue que al acabar el juego nos abra todas las casillas para
+	 * ver donde estaban las minas.
 	 */
 	public void verMinas() {
 		for (int i = 0; i < juego.LADO_TABLERO; i++) {
