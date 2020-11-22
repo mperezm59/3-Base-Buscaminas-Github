@@ -268,7 +268,7 @@ public class VentanaPrincipal {
 
 		if (porExplosion) {
 			verMinas();
-			botonEmpezar.setIcon(new ImageIcon(getClass().getResource("/imagenes/nueva.png")));
+			botonEmpezar.setIcon(new ImageIcon(getClass().getResource("/imagenes/perdio.png")));
 			cadena += "BUUMM!! \n";
 			cadena += "Has perdido por explotar una mina \n";
 			cadena += "Tu puntuacion es: " + juego.getPuntuacion() + "\n";
@@ -276,7 +276,7 @@ public class VentanaPrincipal {
 		} else {
 			verMinas();
 			// para poner un icono al boton
-			botonEmpezar.setIcon(new ImageIcon(getClass().getResource("/imagenes/nueva.png")));
+			botonEmpezar.setIcon(new ImageIcon(getClass().getResource("/imagenes/gano.png")));
 			cadena += "ENHORABUENAA!! \n";
 			cadena += "Has conseguido abrir todas las casillas sin explotar las minas \n";
 		}
@@ -293,7 +293,7 @@ public class VentanaPrincipal {
 			for (int j = 0; j < juego.LADO_TABLERO; j++) {
 				if (juego.minas(i, j)) {
 					botonesJuego[i][j].setText("");
-					botonesJuego[i][j].setIcon(new ImageIcon(getClass().getResource("/imagenes/nueva.png")));
+					botonesJuego[i][j].setIcon(new ImageIcon(getClass().getResource("/imagenes/minaJuego.png")));
 				} else {
 					mostrarNumMinasAlrededor(i, j);
 				}
